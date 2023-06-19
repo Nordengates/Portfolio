@@ -1,0 +1,31 @@
+from replit import clear
+from art import logo
+
+print(logo)
+print("Welcome to the secret auction program!")
+
+bidders = []
+is_finished = False
+highest_bid = 0
+
+while not is_finished:
+    name = input("What is your name?: ")
+    bid = int(input("What is your bid?: "))
+
+    bidder = {"name": name, "bid": bid}
+    bidders.append(bidder)
+
+    if bid > highest_bid:
+        highest_bid = bid
+
+    more_bidders = input("Are there any other bidders? Type 'yes' or 'no': ").lower()
+    clear()
+
+    if more_bidders == "no":
+      winning_bidder = []
+      for bidder in bidders:
+        if bidder["bid"] == highest_bid:
+          winning_bidder.append(bidder["name"])
+
+      print(f"The highest bidder is {winning_bidder[0]} with {highest_bid}.")
+      is_finished = True
