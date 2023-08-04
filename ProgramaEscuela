@@ -1,0 +1,170 @@
+// Permite administrar una escuela con múltiples cursos y alumnos. El usuario puede agregar nuevos cursos y alumnos, 
+// listar los cursos y sus alumnos, listar los alumnos de un curso específico y borrar cursos junto con sus alumnos si lo desea. Codificado en C.
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    char dni[10];
+    char nombre[20];
+    char apellido1[20];
+    char apellido2[20];
+    int telefono;
+} alumno;
+
+typedef struct {
+    char denominacion[20];
+    int numero_alumnos_guardados;
+    alumno alumnos[5];
+} curso;
+
+typedef struct {
+    int numero_cursos_guardados;
+    curso cursos[40];
+} escuela;
+
+void inicializar_escuela(escuela*);
+void introducir_curso(escuela*);
+void listar_curso(escuela*);
+void listar_alumnos_curso(escuela*);
+void borrar_curso(escuela*);
+int menu();
+
+int main() {
+    escuela e;
+    int o;
+
+    inicializar_escuela(&e);
+    o = menu();
+
+    while (o >= 1 && o <= 4) {
+        if (o == 1) {
+            introducir_curso(&e);
+        }
+        if (o == 2) {
+            listar_curso(&e);
+        }
+        if (o == 3) {
+            listar_alumnos_curso(&e);
+        }
+        if (o == 4) {
+            borrar_curso(&e);
+        }
+
+        o = menu();
+    }
+
+    return 0;
+}
+
+void inicializar_escuela(escuela* e) {
+    e->numero_cursos_guardados = 0;
+}
+
+int menu() {
+    int op;
+
+    printf("****************************************************************\n");
+    printf("Teclea el numero de la opcion escogida o cualquier otro numero para salir:\n");
+    printf("1. Introducir curso y alumnos del curso.\n");
+    printf("2. Listar cursos introducidos.\n");
+    printf("3. Listar alumnos de un curso determinado.\n");
+    printf("4. Borrar curso y alumnos.\n");
+    printf("******************************************************************\n");
+    scanf("%d", &op);
+
+    return op;
+}
+
+void introducir_curso(escuela* e) {
+    if (e->numero_cursos_guardados < 40) {
+        curso c;
+        int p;
+
+        c.numero_alumnos_guardados = 0;
+
+        printf("Teclea el nombre del curso:\n");
+        scanf("%s", c.denominacion);
+
+        printf("¿Vas a introducir un nuevo alumno? Teclea 1 si es que si, o 0 si es que no.\n");
+        scanf("%d", &p);
+
+        while (p == 1 && c.numero_alumnos_guardados < 5) { // Agregamos comprobación adicional para que no se pidan más alumnos cuando el curso está lleno
+            alumno a;
+
+            printf("Teclea el DNI del alumno\n");
+            scanf("%s", a.dni);
+
+            printf("Teclea el nombre del alumno\n");
+            scanf("%s", a.nombre);
+
+            printf("Teclea el primer apellido del alumno\n");
+            scanf("%s", a.apellido1);
+
+            printf("Teclea el segundo apellido del alumno\n");
+            scanf("%s", a.apellido2);
+
+            printf("Teclea el primer telefono del alumno\n");
+            scanf("%d", &a.telefono);
+
+            c.alumnos[c.numero_alumnos_guardados] = a;
+            c.numero_alumnos_guardados++; // Acumulador alumnos
+            printf("¿Vas a introducir un nuevo alumno? Teclea 1 si es que si, o 0 si es que no.\n");
+            scanf("%d", &p);
+        }
+
+        e->cursos[e->numero_cursos_guardados] = c;
+        e->numero_cursos_guardados++; // Acumulador cursos
+    } else {
+        printf("No se pueden agregar mas cursos a la escuela.\n");
+    }
+}
+
+void listar_curso(escuela* e) {
+    int i;
+
+    for (i = 0; i < e->numero_cursos_guardados; i++) {
+        printf("%s\n", e->cursos[i].denominacion);
+        printf("Se han guardado %d alumnos.\n", e->cursos[i].numero_alumnos_guardados);
+    }
+}
+
+void listar_alumnos_curso(escuela* e) {
+    int numero_curso;
+    int i, c;
+
+    printf("Teclea el numero del curso del que quieres listar los alumnos:\n");
+    scanf("%d", &numero_curso);
+
+    if (numero_curso >= 1 && numero_curso <= e->numero_cursos_guardados) {
+        printf("Los alumnos del curso %s son:\n", e->cursos[numero_curso - 1].denominacion);
+        for (c = 0; c < e->cursos[numero_curso - 1].numero_alumnos_guardados; c++) {
+            printf("DNI: %s Nombre: %s Apellidos: %s %s Telefono: %d\n", e->cursos[numero_curso - 1].alumnos[c].dni, e->cursos[numero_curso - 1].alumnos[c].nombre, e->cursos[numero_curso - 1].alumnos[c].apellido1, e->cursos[numero_curso - 1].alumnos[c].apellido2, e->cursos[numero_curso - 1].alumnos[c].telefono);
+        }
+    } else {
+        printf("El curso especificado no existe.\n");
+    }
+}
+
+void borrar_curso(escuela* e) {
+    int i, numero;
+
+    printf("\nIndica por su número de los siguientes cursos de cual quieres borrar junto con sus alumnos: \n");
+
+    for (i = 0; i < e->numero_cursos_guardados; i++) {
+        printf("%d. %s\n", i + 1, e->cursos[i].denominacion);
+    }
+
+    scanf("%d", &numero);
+
+    if (numero > 0 && numero <= e->numero_cursos_guardados) {
+        for (i = numero - 1; i < e->numero_cursos_guardados - 1; i++) {
+            e->cursos[i] = e->cursos[i + 1];
+        }
+        e->numero_cursos_guardados--; // Corre posicion y se borra el curso seleccionado
+    } else {
+        printf("El curso especificado no existe.\n");
+    }
+}
