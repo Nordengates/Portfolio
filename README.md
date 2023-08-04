@@ -1,0 +1,3 @@
+# Portfolio de Marina Romero Torres
+Projects I've made using a few apps/coding languages: C, Python, UiPath projects...
+Proyectos que he realizado mediante algunas apps o lenguajes de programacion: C, Python o proyectos de UiPath..
