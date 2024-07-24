@@ -1,7 +1,6 @@
 // Permite administrar una escuela con múltiples cursos y alumnos. El usuario puede agregar nuevos cursos y alumnos, 
 // listar los cursos y sus alumnos, listar los alumnos de un curso específico y borrar cursos junto con sus alumnos si lo desea. Codificado en C.
 
-
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
