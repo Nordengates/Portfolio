@@ -1,8 +1,8 @@
 ## General Objective📝
-Develop and implement a management application using advanced Java programming techniques (advanced class libraries, creation of graphical user interfaces, and data persistence in SGBDOR).
+The main objective of this project was to develop and implement a management application using advanced Java programming techniques. These techniques included utilizing advanced class libraries, creating graphical user interfaces, and ensuring data persistence in an Object-Relational Database Management System (SGBDOR).
 
 ## Description 🚩
-"Senderos y Montañas" presents a real situation in the professional field for a hiking center. The purpose of this project is to develop a scalable backend application for any association. Through its development, you will delve into building applications using advanced programming techniques. Additionally, you will learn various techniques for storing application data, both in dynamic structures and databases.
+"Senderos y Montañas" is a project that simulates a real-world scenario for a hiking center. The aim was to create a scalable backend application suitable for any association. This project provided a deep dive into building applications with advanced programming techniques and exploring various methods for storing application data in both dynamic structures and databases. Through its development, I gained practical experience in creating robust and scalable software solutions tailored to specific professional needs.
 
 ## Key Technologies & Patterns 💻
 - **Database:** MySQL
