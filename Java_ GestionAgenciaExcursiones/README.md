@@ -1,5 +1,3 @@
-# ObjectData SENDERISMO🏔
-
 ## General Objective📝
 Develop and implement a management application using advanced Java programming techniques (advanced class libraries, creation of graphical user interfaces, and data persistence in SGBDOR).
 
